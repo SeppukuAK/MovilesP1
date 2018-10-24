@@ -1,6 +1,5 @@
 package es.ucm.gdv.helloworld;
 
-import android.content.ContentProvider;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
@@ -10,53 +9,58 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.View;
-import android.widget.Button;
 
 import java.io.IOException;
 import java.io.InputStream;
 
-//Una ventana es una actividad, Hay que heredar
 public class MainActivity extends AppCompatActivity {
 
-    //Necesario sobreescribir métodos de la superclase
+    /*
+    //Boton a pinchi
+    private Button _boton;
+    private int _numVeces;
+    */
+
+    Bitmap _sprite;
+    MyView _renderView;
+
+    /*
+     * Se le llama al inicio de la ejecución.
+     * Crea el proceso.
+     * Carga recursos.
+     * Inicia la ventana.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //TODO: AHORA TODO ESTO ES DIFERENTE EN EL LABORATORIO
+        //Carga de recursos
         AssetManager assetManager = getAssets();
         InputStream inputStream = null;
 
-        try
-        {
+        try {
             inputStream = assetManager.open("españita.png");
             _sprite = BitmapFactory.decodeStream(inputStream);
-            inputStream.close();
-        }
-        catch(IOException ioe)
-        {
+        } catch (IOException ioe) {
             //TODO: ERROR
-        }
-        finally {
-            if (inputStream != null)
-            {
+        } finally {
+            if (inputStream != null) {
                 try {
                     inputStream.close();
-                }
-                catch (IOException ioe)
-                {
+                } catch (IOException ioe) {
                     //TODO: ERROR
                 }
             }
         }
 
+        //Creación de la ventana
         _renderView = new MyView(this);
         setContentView(_renderView);
-        /*
+        /*TODO: PUTO BOTOOOOOOOOOOOOOOOON
+
         //Creación de un botón
-        _boton = new Button(this);
+        _boton = new Button(context);
         _boton.setText("¡¡Pulsame!!");
 
         _boton.setOnClickListener(new View.OnClickListener() {
@@ -71,66 +75,89 @@ public class MainActivity extends AppCompatActivity {
         */
     }
 
+    /*
+    Se le llama cuando la aplicación pasa a primer plano.
+    Reanuda el bucle de juego.
+     */
     @Override
-    protected void onResume()
-    {
+    protected void onResume() {
         super.onResume();
         _renderView.resume();
     }
 
+    /*
+    Se le llama cuando la aplicación pasa a segundo plano.
+    Pausa el bucle de juego.
+     */
     @Override
-    protected  void onPause()
-    {
+    protected void onPause() {
         super.onPause();
         _renderView.pause();
     }
 
+    //Una ventana es una actividad, Hay que heredar de surfaceView
+    //SurfaceView -> Será un atributo de Graphics.
+    //Runnable -> Lo heredará Game
     //TODO: ESTO ES MUY FEO Y SE PUEDE SEPARAR. NO NECESITAMOS REALMENTE HEREDAR DE SURFACE VIEW
-    class MyView extends SurfaceView implements Runnable
-    {
-        public MyView(Context context)
-        {
-            super (context);
+    class MyView extends SurfaceView implements Runnable {
+        //Españita
+        double _x = 0;
+        int _incX = 50;
+        int _imageWidth;
+
+        //Volatile: CADA VEZ QUE TENGAS QUE VER EL VALOR, VE A MEMORIA, NO MIRES EN CACHE
+        volatile boolean _running = false;  //Variable compartida por las 2 hebras
+        Thread _runningThread;
+
+        public MyView(Context context) {
+            super(context);
             if (_sprite != null)
                 _imageWidth = _sprite.getWidth();
         }
 
-        //
-        public void resume()
-        {
-          if (!_running)
-          {
-              _running = true;
+        /*
+        Es llamado cuando la aplicación pasa a primer plano.
+        Reinicia el bucle de juego.
+        */
+        public void resume() {
+            if (!_running) {
+                _running = true;
 
-              _runningThread = new Thread(this);
-              _runningThread.start();    //LLAMA A RUN
-          }
+                //Crea la hebra
+                _runningThread = new Thread(this);
+                _runningThread.start();    //LLAMA A RUN
+            }
         }
 
-        public void pause()
-        {
+        /*
+        Es llamado cuando la aplicación pasa a segundo plano.
+        Pausa el bucle de juego
+         */
+        public void pause() {
             _running = false;
-            while (true)
-            {
+            //Se espera a que acabe el tick y pausa
+            while (true) {
                 try {
                     _runningThread.join();
                     break;
-                }
-                catch (InterruptedException ie) {
+                } catch (InterruptedException ie) {
 
                 }
             }
 
         }
 
+        /*
+        Se ejecuta en otro hilo.
+        Tiene el bucle de juego
+        */
         @Override
-        public void run()
-        {
+        public void run() {
             long _lastFrameTime = System.nanoTime();
-            SurfaceHolder sh = getHolder();
+            SurfaceHolder sh = getHolder();     //Referencia a la ventana
 
-            while (_running)
-            {
+            while (_running) {
+                //Calculo de elapsedTime
                 long currentTime = System.nanoTime();
                 long nanoElapsedTime = currentTime - _lastFrameTime;
                 _lastFrameTime = currentTime;
@@ -140,52 +167,41 @@ public class MainActivity extends AppCompatActivity {
                 update(elapsedTime);
 
                 //RENDER
-                while (!sh.getSurface().isValid());
-                Canvas canvas = getHolder().lockCanvas();
-                //TODO: TRY CATCH AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-                render(canvas);
-                getHolder().unlockCanvasAndPost(canvas);
+                while (!sh.getSurface().isValid()) ; //Esperamos a poder coger el viewport
 
+                Canvas canvas = getHolder().lockCanvas();   //Obtenemos el canvas y lo bloqueamos
+                //TODO: Supuestamente hay que hacer un try catch en algún lado
+                render(canvas);
+                getHolder().unlockCanvasAndPost(canvas);    //Desbloquea el canvas
             }
         }
 
-        protected void update(double deltaTime)
-        {
-            _x+= _incX * deltaTime;
-            if (_x < 0)
-            {
+        /*
+        Avanza un frame en la lógica de juego.
+         */
+        protected void update(double deltaTime) {
+            //Control de españita
+            _x += _incX * deltaTime;
+            if (_x < 0) {
                 _x = -_x;
                 _incX *= -1;
-            }
-
-            else if (_x > getWidth() - _imageWidth)
-            {
-                _x = 2*(getWidth() - _imageWidth) - _x;
+            } else if (_x > getWidth() - _imageWidth) {
+                _x = 2 * (getWidth() - _imageWidth) - _x;
                 _incX *= -1;
             }
         }
 
-        protected void render(Canvas c)
-        {
+        /*
+        Pinta los GameObjects en el canvas
+         */
+        protected void render(Canvas c) {
             if (_sprite != null) {
                 c.drawColor(0xFF0000FF); //ARGB
                 c.drawBitmap(_sprite, (int) _x, 100, null);
             }
         }
 
-        double _x = 0;
-        int _incX = 50;
-        int _imageWidth;
-
-        //Volatile: CADA VEZ QUE TENGAS QUE VER EL VALOR, VE A MEMORIA, NO MIRES EN CACHE
-        volatile boolean _running = false;
-
-        Thread _runningThread;
     }
 
-    //private Button _boton;
-    //private int _numVeces;
 
-    Bitmap _sprite;
-    MyView _renderView;
 }
