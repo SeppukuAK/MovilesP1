@@ -66,6 +66,7 @@ local.properties
 #fastlane/test_output
 #fastlane/readme.md
 
+.gradle
 #/local.properties
 #/.idea/caches/build_file_checksums.ser
 #/.idea/libraries
