@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             inputStream = assetManager.open("españita.png");
             _sprite = BitmapFactory.decodeStream(inputStream);
+
         } catch (IOException ioe) {
             //TODO: ERROR
         } finally {

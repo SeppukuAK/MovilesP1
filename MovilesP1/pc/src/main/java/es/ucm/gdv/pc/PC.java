@@ -29,7 +29,7 @@ public class PC extends JFrame {
 
         //Carga de recursos
         try{
-            _logo = javax.imageio.ImageIO.read(new java.io.File("espanita.png"));
+            _logo = javax.imageio.ImageIO.read(new java.io.File("pc/src/main/assets/java.png"));
             _imageWidth = _logo.getWidth(null);
         }
         catch(IOException ioe)
