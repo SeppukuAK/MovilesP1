@@ -15,6 +15,9 @@ public interface Graphics {
     //TODO: DIFERENTES METODOS (ESCALADO DE LA IMAGEN, ETC)
     void drawImage(Image image, int x, int y);
 
+    //D1, D2 = Esquinas del rectángulo que dibujo en la ventana   /   S1, S2 = Esquinas del rectángulo que recorto de la imagen
+    void drawImage(Image image, int dx1, int dy1, int dx2, int dy2, int sx1, int sy1, int sx2, int sy2);
+
     //Devuelve el tamaño de la ventana
     int getWidth();
     int getHeight();

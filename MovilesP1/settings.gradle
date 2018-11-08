@@ -1,1 +1,1 @@
-include ':app', ':pc', ':engine'
+include ':app', ':pc', ':engine', ':Bombitas', ':BombitasPC', ':BombitasAndroid', ':android'

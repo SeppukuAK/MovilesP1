@@ -4,20 +4,17 @@ import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
 
-import es.ucm.gdv.engine.Game;
 import es.ucm.gdv.engine.Graphics;
-import es.ucm.gdv.engine.Logic;
+import es.ucm.gdv.engine.StateGame;
 
-public class PCGame implements Game {
+public class PCGame extends StateGame {
 
     private PCGraphics _pcGraphics;
-    private Logic _logic;
 
-    public PCGame(int x, int y, int closeOperation , Logic logic)
+    public PCGame(int x, int y, int closeOperation, String name)
     {
-        _logic = logic;
         //Creación de ventana - Crea un nuevo hilo
-        JFrame ventana = new JFrame("Paint");
+        JFrame ventana = new JFrame(name);
 
         //Inicialización ventana JFrame
         ventana.setSize(x,y);
@@ -41,8 +38,7 @@ public class PCGame implements Game {
 
             //TODO: Input
 
-            //TODO: Lógica
-            _logic.update(elapsedTime);
+            _gameState.update(elapsedTime);
 
             //Renderizado
             do
@@ -51,9 +47,8 @@ public class PCGame implements Game {
                 {
                     java.awt.Graphics graphics = strategy.getDrawGraphics();
                     try{
-                        //TODO: Render
                         _pcGraphics.startFrame(graphics);
-                        _logic.render();
+                        _gameState.render();
                     }
                     finally	//Finally -> Haga lo que haga, pasa.
                     {

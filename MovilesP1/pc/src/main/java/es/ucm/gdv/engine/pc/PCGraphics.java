@@ -9,8 +9,8 @@ import es.ucm.gdv.engine.Image;
 
 public class PCGraphics implements Graphics {
 
-    private JFrame _jFrame;
-    private java.awt.Graphics _graphics;
+    private JFrame _jFrame;                     //Ventana
+    private java.awt.Graphics _graphics;        //Viewport donde se pinta
 
     PCGraphics(JFrame jFrame) {
         _jFrame = jFrame;
@@ -44,7 +44,8 @@ public class PCGraphics implements Graphics {
         PCImage pcImage = null;
         //Carga de recursos
         try{
-            java.awt.Image javaImage = javax.imageio.ImageIO.read(new java.io.File(name));
+            //TODO: NO ES MULTIPLATAFORMA
+            java.awt.Image javaImage = javax.imageio.ImageIO.read(new java.io.File( _jFrame.getTitle() + "Android/src/main/assets/" + name));
             pcImage = new PCImage(javaImage);
         }
         catch(IOException ioe)
@@ -67,6 +68,17 @@ public class PCGraphics implements Graphics {
             java.awt.Image javaImage = pcImage.getJavaImage();
 
             _graphics.drawImage(javaImage,x,y,null);
+        }
+    }
+
+    @Override
+    public void drawImage(Image image, int dx1, int dy1, int dx2, int dy2, int sx1, int sy1, int sx2, int sy2) {
+        if (image != null)
+        {
+            PCImage pcImage = (PCImage) image;
+            java.awt.Image javaImage = pcImage.getJavaImage();
+
+            _graphics.drawImage(javaImage, dx1, dy1, dx2, dy2, sx1, sy1, sx2, sy2, null);
         }
     }
 

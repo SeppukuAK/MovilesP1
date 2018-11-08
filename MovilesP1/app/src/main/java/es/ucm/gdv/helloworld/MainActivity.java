@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         InputStream inputStream = null;
 
         try {
-            inputStream = assetManager.open("españita.png");
+            inputStream = assetManager.open("espanita.png");
             _sprite = BitmapFactory.decodeStream(inputStream);
 
         } catch (IOException ioe) {

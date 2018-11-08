@@ -8,6 +8,10 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/Bombitas" />
+            <option value="$PROJECT_DIR$/BombitasAndroid" />
+            <option value="$PROJECT_DIR$/BombitasPC" />
+            <option value="$PROJECT_DIR$/android" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/engine" />
             <option value="$PROJECT_DIR$/pc" />
