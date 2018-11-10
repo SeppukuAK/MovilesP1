@@ -4,7 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import es.ucm.gdv.android.engine.AndroidGame;
-import es.ucm.gdv.bombitas.BombitasExampleState;
+import es.ucm.gdv.bombitas.GameManager;
 
 public class BombitasActivity extends AppCompatActivity {
 
@@ -21,10 +21,7 @@ public class BombitasActivity extends AppCompatActivity {
         setContentView(R.layout.activity_bombitas);
 
         _androidGame = new AndroidGame(this);
-
-        BombitasExampleState logic = new BombitasExampleState(_androidGame);
-
-        _androidGame.setGameState(logic);
+        new GameManager(_androidGame);
     }
 
     /*
