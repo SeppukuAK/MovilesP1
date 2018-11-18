@@ -13,7 +13,6 @@ public class BombitasPC {
     public static void main (String[] args)
     {
         PCGame pcGame = new PCGame(800,800,JFrame.EXIT_ON_CLOSE,"Bombitas");
-
         new GameManager(pcGame);
 
         pcGame.run();
