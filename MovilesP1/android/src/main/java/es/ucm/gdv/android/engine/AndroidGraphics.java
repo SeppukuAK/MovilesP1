@@ -20,9 +20,13 @@ public class AndroidGraphics implements es.ucm.gdv.engine.Graphics {
 
     private Canvas _canvas;                 //Viewport donde se pinta
 
+    private int _width;
+    private int _height;
+
     AndroidGraphics(SurfaceView surfaceView, AssetManager assetManager) {
         _surfaceView = surfaceView;
         _assetManager = assetManager;
+
     }
 
     //TODO: A LO MEJOR ESTAMOS CARGANDO MUCHAS VECES LAS IMAGENES
@@ -69,8 +73,8 @@ public class AndroidGraphics implements es.ucm.gdv.engine.Graphics {
             AndroidImage androidImage = (AndroidImage) image;
             Bitmap bitmap = androidImage.getBitmap();
 
-            Rect src = new Rect(dx1,dy1,dx2,dy2);
-            Rect dst = new Rect(sx1,sy1,sx2,sy2);
+            Rect dst = new Rect(dx1,dy1,dx2,dy2);
+            Rect src = new Rect(sx1,sy1,sx2,sy2);
 
             _canvas.drawBitmap(bitmap, src, dst, null);
         }
@@ -83,12 +87,22 @@ public class AndroidGraphics implements es.ucm.gdv.engine.Graphics {
 
     @Override
     public int getWidth() {
-        return _surfaceView.getWidth();
+        int width = 0;
+        while (width == 0)
+        {
+            width = _surfaceView.getWidth();
+        }
+        return width;
     }
 
     @Override
     public int getHeight() {
-        return _surfaceView.getHeight();
+        int height = 0;
+        while (height == 0)
+        {
+            height = _surfaceView.getHeight();
+        }
+        return height;
     }
 
 }

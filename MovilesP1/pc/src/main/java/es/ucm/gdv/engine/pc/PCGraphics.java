@@ -44,8 +44,7 @@ public class PCGraphics implements Graphics {
         PCImage pcImage = null;
         //Carga de recursos
         try{
-            //TODO: NO ES MULTIPLATAFORMA
-            java.awt.Image javaImage = javax.imageio.ImageIO.read(new java.io.File( _jFrame.getTitle() + "Android/src/main/assets/" + name));
+            java.awt.Image javaImage = javax.imageio.ImageIO.read(new java.io.File("assets/" + name));
             pcImage = new PCImage(javaImage);
         }
         catch(IOException ioe)

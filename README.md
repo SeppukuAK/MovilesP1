@@ -52,15 +52,6 @@ Hay que hacer un modulo externo para cada una de las plataformas.
 
 Lanzar una excepcion si no carga una imagen
 
-input aaaaaa
-
-lista de eventos.
-Input es lo ultimo
-
-en engine hay que cerar un interfaz nuevo: GameState
-
-game tiene un currentState
-
 En el caso del boton habia que implementar una interfaz.
 En eventos de pulsacion tambien (en java)
 
@@ -75,8 +66,6 @@ Hay que suscribirse a los eventos y reaccionar
 
 En android los eventos se realizan sobre las vistas, no sobre las actividades.
 
-El interfaz se llama View.OnTouchListener.
-Este interfaz solo tiene un metodo, que es llamado cada vez que pasa alguna cosa
 
 La lista de los eventos la pide la logica.
 
@@ -123,3 +112,5 @@ Lo del estado es lo similar al pinchaGlobos
 Va a haber diferentes estados
 
 Se deberia hacer un estado primero de carga
+
+        <!--- android:theme="@style/AppTheme" -->

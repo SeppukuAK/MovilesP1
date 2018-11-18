@@ -12,7 +12,6 @@ public interface Graphics {
     void clear(int rgb);
 
     //Dibuja una imagen en pantalla
-    //TODO: DIFERENTES METODOS (ESCALADO DE LA IMAGEN, ETC)
     void drawImage(Image image, int x, int y);
 
     //D1, D2 = Esquinas del rectángulo que dibujo en la ventana   /   S1, S2 = Esquinas del rectángulo que recorto de la imagen

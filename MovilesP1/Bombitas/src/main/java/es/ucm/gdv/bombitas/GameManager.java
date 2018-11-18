@@ -1,33 +1,44 @@
 package es.ucm.gdv.bombitas;
 
+import es.ucm.gdv.bombitas.GameState.LoadResources;
 import es.ucm.gdv.engine.StateGame;
 
+/**
+ * Objeto persistente entre todas los GameState del juego.
+ * Gestiona el flujo del juego.
+ * Tiene parámetros para poder pasarse de un GameState a otro
+ */
 public class GameManager {
 
-    //TODO: LOS COLORINES
-    public enum SpriteType {
-        ROOF, FLOOR, PLANELEFT, PLANERIGHT, BOMB, COLLISION1, COLLISION2, COLLISION3, UNDERLINE
+    /**
+     * Enumerado para el color del Spirte
+     */
+    public enum SpriteColor {
+        BLACK, LIGHT_GREEN, RED, PURPLE, GREEN, ORANGE, BLUE, YELLOW, MAGENTA, WHITE, BOTTLE_GREEN, CYAN, KHAKI, PINK, INDIGO, APPLE_GREEN
     }
 
+    //Referencia al motor
     public StateGame Game;
-    public Sprite[] Sprites;
-    public Sprite[] Letters;
 
-    public void setText(TileMap tileMap, String text, int x, int y) {
+    //Sprites disponibles para dibujar. Se cargan en LoadResources
+    public Sprite[][] Sprites;
 
-        char [] charText = text.toCharArray();
-        for(int i = 0; i < charText.length; i++)
-        {
-            tileMap.setSpritePosition(Letters[charText[i]], (x + i) % tileMap.Cols, y + (i + x) / tileMap.Cols);
-        }
-    }
+    //Atributos del juego
+    public int Level;
+    public int Velocity;
+    public int Score;
+    public int MaxScore;
 
     public GameManager(StateGame game) {
         Game = game;
+        Level = -1;
+        Velocity = -1;
+        Score = -1;
+        MaxScore = 0;
 
-        new LoadResources(this);
-        //TODO: LOAD RESOURCES NO LO UTILIZAMOS COMO UN GAMESTATE
-        // Game.setGameState(state);
+        Game.setGameState(new LoadResources(this));
     }
+
+
 
 }

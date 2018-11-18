@@ -7,11 +7,14 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import es.ucm.gdv.engine.Graphics;
+import es.ucm.gdv.engine.Input;
 import es.ucm.gdv.engine.StateGame;
 
 public class AndroidGame extends StateGame implements Runnable {
 
     private AndroidGraphics _androidGraphics;
+    private AndroidInput _androidInput;
+
     private SurfaceView _surfaceView;
 
     //Volatile: CADA VEZ QUE TENGAS QUE VER EL VALOR, VE A MEMORIA, NO MIRES EN CACHE
@@ -26,6 +29,7 @@ public class AndroidGame extends StateGame implements Runnable {
         AssetManager assetManager = context.getAssets();
 
         _androidGraphics = new AndroidGraphics(_surfaceView,assetManager);
+        _androidInput = new AndroidInput(_surfaceView);
     }
 
     /*
@@ -94,5 +98,10 @@ public class AndroidGame extends StateGame implements Runnable {
     @Override
     public Graphics getGraphics() {
         return _androidGraphics;
+    }
+
+    @Override
+    public Input getInput() {
+        return _androidInput;
     }
 }

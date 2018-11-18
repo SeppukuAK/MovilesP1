@@ -6,6 +6,5 @@ package es.ucm.gdv.engine;
  */
 public interface Game {
     Graphics getGraphics();
-
-    //TODO: Input
+    Input getInput();
 }

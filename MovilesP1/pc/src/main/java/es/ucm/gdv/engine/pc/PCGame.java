@@ -5,22 +5,24 @@ import java.awt.image.BufferStrategy;
 import javax.swing.JFrame;
 
 import es.ucm.gdv.engine.Graphics;
+import es.ucm.gdv.engine.Input;
 import es.ucm.gdv.engine.StateGame;
 
 public class PCGame extends StateGame {
 
     private PCGraphics _pcGraphics;
+    private PCInput _pcInput;
 
     public PCGame(int x, int y, int closeOperation, String name)
     {
         //Creación de ventana - Crea un nuevo hilo
         JFrame ventana = new JFrame(name);
-
         //Inicialización ventana JFrame
         ventana.setSize(x,y);
         ventana.setDefaultCloseOperation(closeOperation);	//Le decimos que cuando se de a la 'x' se cierre la aplicacion
 
         _pcGraphics = new PCGraphics(ventana);
+        _pcInput = new PCInput(ventana);
     }
 
     public void run()
@@ -35,8 +37,6 @@ public class PCGame extends StateGame {
             long currentTime = 	System.nanoTime();	//Hora actual
             double elapsedTime = (double) (currentTime-lastFrameTime) / 1E09;
             lastFrameTime = currentTime;
-
-            //TODO: Input
 
             _gameState.update(elapsedTime);
 
@@ -69,4 +69,8 @@ public class PCGame extends StateGame {
         return _pcGraphics;
     }
 
+    @Override
+    public Input getInput() {
+        return _pcInput;
+    }
 }

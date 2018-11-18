@@ -1,5 +1,0 @@
-<resources>
-    <string name="app_name">HelloWorld</string>
-    //TODO: Definir strings aquí y no en activity_main
-    <string name="label">Hola mundo!!</string>
-</resources>
