@@ -21,8 +21,6 @@ public class LoadResources implements GameState {
     final int SPRITES_BY_ROW = 16;
     final int COLOURS = 16;
 
-    //TODO: SOY TONTI
-
     public LoadResources(GameManager gameManager) {
         _gameManager = gameManager;
         _graphics = gameManager.Game.getGraphics();
@@ -82,7 +80,7 @@ public class LoadResources implements GameState {
 
     @Override
     public void update(double elapsedTime) {
-        //Cuando se ha acabado de cargar todo, se establece el nuevo GameState
-        _gameManager.Game.setGameState(new TutorialGameState(_gameManager));    //TODO: CAMBIAR A LA ESCENA DE VERDAD
+        //Cuando se ha acabado de cargar to-do, se establece el nuevo GameState
+        _gameManager.Game.setGameState(new TutorialGameState(_gameManager));
     }
 }

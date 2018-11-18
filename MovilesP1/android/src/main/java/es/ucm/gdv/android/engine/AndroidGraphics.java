@@ -4,7 +4,6 @@ import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Matrix;
 import android.graphics.Rect;
 import android.view.SurfaceView;
 
@@ -20,16 +19,11 @@ public class AndroidGraphics implements es.ucm.gdv.engine.Graphics {
 
     private Canvas _canvas;                 //Viewport donde se pinta
 
-    private int _width;
-    private int _height;
-
     AndroidGraphics(SurfaceView surfaceView, AssetManager assetManager) {
         _surfaceView = surfaceView;
         _assetManager = assetManager;
-
     }
 
-    //TODO: A LO MEJOR ESTAMOS CARGANDO MUCHAS VECES LAS IMAGENES
     @Override
     public Image newImage(String name) {
         InputStream inputStream = null;

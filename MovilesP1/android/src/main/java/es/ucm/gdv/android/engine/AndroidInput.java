@@ -38,7 +38,25 @@ public class AndroidInput implements View.OnTouchListener, Input {
 
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
 
-            TouchEvent touchEvent = new TouchEvent((int) event.getX(), (int) event.getY());
+            TouchEvent touchEvent = new TouchEvent((int) event.getX(), (int) event.getY(),TouchEvent.TouchType.TOUCH,TouchEvent.ButtonType.PRIMARY.ordinal());
+            synchronized (this) {
+                touchEventList.add((touchEvent)); //Añadimos el evento a la lista
+            }
+            return true;
+        }
+
+        else if (event.getAction() == MotionEvent.ACTION_UP)
+        {
+            TouchEvent touchEvent = new TouchEvent((int) event.getX(), (int) event.getY(),TouchEvent.TouchType.RELEASE,TouchEvent.ButtonType.PRIMARY.ordinal());
+            synchronized (this) {
+                touchEventList.add((touchEvent)); //Añadimos el evento a la lista
+            }
+            return true;
+        }
+
+        else if (event.getAction() == MotionEvent.ACTION_MOVE)
+        {
+            TouchEvent touchEvent = new TouchEvent((int) event.getX(), (int) event.getY(),TouchEvent.TouchType.MOVEMENT,TouchEvent.ButtonType.PRIMARY.ordinal());
             synchronized (this) {
                 touchEventList.add((touchEvent)); //Añadimos el evento a la lista
             }

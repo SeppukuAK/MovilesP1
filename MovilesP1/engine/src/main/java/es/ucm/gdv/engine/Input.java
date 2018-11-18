@@ -7,5 +7,9 @@ import java.util.List;
  */
 public interface Input {
 
+    /**
+     * Devuelve una lista con todos los eventos recibidos desde el ultimo tick
+     * @return
+     */
     List<TouchEvent> getTouchEvents();
 }

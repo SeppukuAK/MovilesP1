@@ -26,12 +26,12 @@ public class TutorialGameState extends TileMapGameState {
 
     @Override
     public void update(double elapsedTime) {
-        //TODO: PEPA
         List<TouchEvent> touchEvents = _gameManager.Game.getInput().getTouchEvents();
-        if (touchEvents.size() > 0)
-        {
-            _gameManager.Game.setGameState(new LevelGameState(_gameManager));
-        }
+
+        for (TouchEvent t: touchEvents)
+            if (t.get_touchType() == TouchEvent.TouchType.TOUCH && t.get_ID() == TouchEvent.ButtonType.PRIMARY.ordinal())
+                _gameManager.Game.setGameState(new LevelGameState(_gameManager));
+
     }
 
 }

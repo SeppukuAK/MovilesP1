@@ -10,10 +10,11 @@ abstract public class StateGame implements Game {
 
     /**
      * Establece un nuevo gameState
+     * Limpia el input
      * @param gameState
      */
     public void setGameState(GameState gameState) {
-        getInput().getTouchEvents(); //Limpia la lista de eventos TODO: REVISAR
+        getInput().getTouchEvents(); //Limpia la lista de eventos
         _gameState = gameState;
     }
 }

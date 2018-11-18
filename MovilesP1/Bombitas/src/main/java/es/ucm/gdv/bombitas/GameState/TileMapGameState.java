@@ -29,7 +29,6 @@ abstract public class TileMapGameState implements GameState {
 
         _tileMap = new Tile[_rows][_cols];
 
-        //TODO: Somos muy cutres
         _tileSizeX = _graphics.getWidth()/(cols + 2);
         _tileSizeY = _graphics.getHeight()/(rows + 2);
 
@@ -66,9 +65,7 @@ abstract public class TileMapGameState implements GameState {
         _tileMap[y][x] = null;
     }
 
-    //TODO: RAYADAS DEL AMIGUI
     public void setText(String text, int x, int y,GameManager.SpriteColor letterColor) {
-        //TODO: Detección de error
         char [] charText = text.toCharArray();
 
         for(int i = 0; i < charText.length; i++)

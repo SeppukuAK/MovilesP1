@@ -6,9 +6,13 @@ import android.os.Bundle;
 import es.ucm.gdv.android.engine.AndroidGame;
 import es.ucm.gdv.bombitas.GameManager;
 
+/**
+ * Punto de entrada para Android
+ */
 public class BombitasActivity extends AppCompatActivity {
 
-    AndroidGame _androidGame;
+    private AndroidGame _androidGame;
+
     /*
      * Se le llama al inicio de la ejecución.
      * Crea el proceso.
@@ -18,9 +22,11 @@ public class BombitasActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bombitas);
 
+        //Crea el motor
         _androidGame = new AndroidGame(this);
+
+        //Crea el juego
         new GameManager(_androidGame);
     }
 
@@ -43,4 +49,5 @@ public class BombitasActivity extends AppCompatActivity {
         super.onPause();
         _androidGame.pause();
     }
+
 }

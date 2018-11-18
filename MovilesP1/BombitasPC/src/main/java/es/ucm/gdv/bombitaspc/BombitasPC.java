@@ -12,9 +12,13 @@ public class BombitasPC {
 
     public static void main (String[] args)
     {
+        //Crea el motor
         PCGame pcGame = new PCGame(800,800,JFrame.EXIT_ON_CLOSE,"Bombitas");
+
+        //Crea el juego
         new GameManager(pcGame);
 
+        //Inicia el juego
         pcGame.run();
     }
 }

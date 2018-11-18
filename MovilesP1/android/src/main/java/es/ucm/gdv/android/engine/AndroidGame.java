@@ -88,7 +88,8 @@ public class AndroidGame extends StateGame implements Runnable {
             while (!sh.getSurface().isValid()) ; //Esperamos a poder coger el viewport
 
             Canvas canvas = _surfaceView.getHolder().lockCanvas();   //Obtenemos el canvas y lo bloqueamos
-            //TODO: Supuestamente hay que hacer un try catch en algún lado
+
+            //TODO: Try Catch
             _androidGraphics.startFrame(canvas);
             _gameState.render();
             _surfaceView.getHolder().unlockCanvasAndPost(canvas);    //Desbloquea el canvas
